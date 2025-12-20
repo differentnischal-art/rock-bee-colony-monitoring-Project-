@@ -100,21 +100,21 @@ This structure ensures accountability and realistic deployment.
 ### Scope:
 - Centralized reporting and monitoring  
 - AI-assisted validation  
-- Support for ecological research and conservation  
+- Support for ecological research and conservation and also for high honey production by knowing their ecological behavioural pattern. 
 
 ### Limitations:
-- Accuracy depends on image quality  
-- ML model performance limited by dataset availability  
+- Accuracy depends on image quality (clearer the image higher us the accuracy) 
+- ML model performance limited by dataset availability  (dataset of the images from kaggle)
 - Final decisions require human expertise  
 
 ---
 
 ## Future Enhancements
-- Advanced bee species classification  
-- Heatmap-based colony density analysis  
-- Seasonal migration prediction  
+- Advanced bee species classification (not only rockbee but other types of bees are also classified for near future)
+- Heatmap-based colony density analysis  (This can be done withib this project only if we get time)
+- Seasonal migration prediction (this is advanced but possible) 
 - Alert systems for high-risk zones  
-- Offline reporting with delayed sync  
+ 
 
 ---
 
@@ -124,10 +124,10 @@ Detailed references and research materials are provided in the `docs/reference-l
 ---
 
 ## Team Details
-- **Team Lead:** [Your Name]  
-- **Team Member:** [Member Name]  
-- **Team Member:** [Member Name]  
-- **Team Member:** [Member Name]  
+- **Team Lead:**Nischal Adhikari
+- **Team Member:** Ishan Joshi 
+- **Team Member:** Alan Basnet
+
 
 ---
 
