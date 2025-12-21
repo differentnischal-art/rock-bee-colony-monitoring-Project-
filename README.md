@@ -1,6 +1,6 @@
 # Rock Bee Colony Detection & Monitoring System
 
-<img src=" https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRl9_UGAXyGbGJ8en7s3X1YJtlyMV6UEk_7htqi2zRmjz1hhf1Joj1fnMQdg50WYcXtDpozVBXp1HHS4a8dj7b4VUvqIMlp2TLtIo-wsOQ-&s=10" alt="honeybee" />
+<img src=" images.png" alt="honeybee" />
 
 ## Project Overview
 This project is developed as part of a college initiative in collaboration with **GKVK (University of Agricultural Sciences, Bengaluru)** and related authorities. The objective is to design a **centralized, AI-assisted application** that enables safe reporting, validation, and monitoring of rock bee colonies. The system is intended for **institutional and research use**, supporting ecological conservation while minimizing human–bee conflicts.
