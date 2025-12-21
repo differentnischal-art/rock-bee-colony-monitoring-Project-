@@ -53,6 +53,21 @@ The overall problem is divided into smaller, manageable challenges:
 ---
 
 ## Proposed Solution & System Architecture
+
+```mermaid
+flowchart TB
+    U[Students / Institutions] -->|Incidentally Report| A[Mobile / Web App]
+
+    A -->|Upload Image + Location| AI[AI Validation Layer<br/>CNN Model]
+
+    AI -->|Confidence Score| D[(Central Database)]
+
+    D --> M[Monitoring Dashboard]
+
+    M --> G[GKVK / Authorities]
+
+    G -->|Eco-friendly Action| C[Colony Conservation]
+
 The proposed solution is a **layered system** consisting of:
 
 - **User Reporting Layer**  
