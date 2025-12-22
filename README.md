@@ -151,16 +151,18 @@ This structure ensures accountability and realistic deployment.
 ---
 
 ## References
-Detailed references and research materials are provided in the `docs/reference-links.txt` file.
+
+<p>
+All scientific, ecological, and technical references used in this project are documented in
+<a href="docs/reference-links.txt">docs/reference-links.txt</a>.
+</p>
+
 
 ---
 
 ## Team Details
-<<<<<<< HEAD
-- **Team Leader:** Nischal Adhikari
-=======
-- **Team Leader:**Nischal Adhikari
->>>>>>> 9f24e4ccff2020e4f3fb8739e3762e07730c2a1d
+
+ **Team Leader:** Nischal Adhikari
 - **Team Member:** Ishan Joshi 
 - **Team Member:** Alan Basnet
 
