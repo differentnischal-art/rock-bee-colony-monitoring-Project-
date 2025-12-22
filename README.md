@@ -156,7 +156,11 @@ Detailed references and research materials are provided in the `docs/reference-l
 ---
 
 ## Team Details
+<<<<<<< HEAD
 - **Team Leader:** Nischal Adhikari
+=======
+- **Team Leader:**Nischal Adhikari
+>>>>>>> 9f24e4ccff2020e4f3fb8739e3762e07730c2a1d
 - **Team Member:** Ishan Joshi 
 - **Team Member:** Alan Basnet
 
