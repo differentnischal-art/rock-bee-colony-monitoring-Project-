@@ -3,7 +3,7 @@
 ## Project Overview
 
 <p align="center">
-  <img src="gif_image/Overview.gif" alt="Demo" width="350"/>
+  <img src="gif_image/Overview.gif" alt="Demo" width="300" height="300"/>
 </p>
 
 This project is developed as part of a college initiative in collaboration with **GKVK (University of Agricultural Sciences, Bengaluru)** and related authorities. The objective is to design a **centralized, AI-assisted application** that enables safe reporting, validation, and monitoring of rock bee colonies. The system is intended for **institutional and research use**, supporting ecological conservation while minimizing human–bee conflicts.
@@ -12,6 +12,10 @@ This project is developed as part of a college initiative in collaboration with 
 
 ## Problem Background
 Rock bees (*Apis dorsata*) are one of the largest honey bee species found in India. Unlike other honey bees, rock bees exhibit **open nesting behavior**, where colonies are built on exposed surfaces such as rock cliffs, tall trees, and building edges. Due to this behavior, their colonies are highly visible and often located close to human activity.
+
+<p align="center">
+  <img src="images/hives.png" alt="hive" width="350"/>
+</p>
 
 While rock bees play a critical role in pollination and ecological balance, their proximity to human settlements can lead to safety concerns, panic situations, and improper destruction of colonies. At present, there is **no centralized, technology-driven system** to systematically report, verify, and monitor these colonies.
 
@@ -26,6 +30,11 @@ The absence of a structured monitoring mechanism results in:
 - Limited data availability for researchers and authorities  
 
 A centralized application can bridge this gap by enabling **structured data collection, intelligent validation, and real-time monitoring** for informed decision-making.
+ 
+ Need an app like the image below:
+  <p align="center">
+  <img src="images/app-flow.png" alt="app" width="350"/>
+</p>
 
 ---
 
@@ -38,10 +47,17 @@ The project is based on research into:
 
 This research highlights the need for an automated, scalable, and eco-friendly solution.
 
+For the detail information about the research you can visit 
+
 ---
 
 ## Problem Breakdown
 The overall problem is divided into smaller, manageable challenges:
+
+<p align="center">
+  <img src="gif_image/layers.gif" alt="layers" width="350"/>
+</p>
+
 
 1. **Unstructured Reporting**  
    - No standardized method to report rock bee colonies  
@@ -55,10 +71,15 @@ The overall problem is divided into smaller, manageable challenges:
 4. **Limited Public Awareness**  
    - People often destroy colonies due to fear or misinformation .
 
+  
 ---
 
 ## Proposed Solution & System Architecture
-<img src="images/architecture.png" alt="architecture" width="300" height="300"/>
+
+ <p align="center">
+  <img src="images/architecture.png" alt="arch" width="350"/>
+</p>
+
 
 - **User Reporting Layer**  
   - Students, staff, or trained volunteers report colonies when incidentally encountered.They dont haunt for colonies instead if they see any of such colonies they report on app.
@@ -75,6 +96,7 @@ The overall problem is divided into smaller, manageable challenges:
 This layered approach ensures reliability, scalability, and responsible usage.
 
 ---
+
 
 ## AI / Machine Learning Component
 The AI component plays a **supportive role**, assisting experts rather than replacing them.
@@ -115,6 +137,11 @@ This structure ensures accountability and realistic deployment.
 ---
 
 ## Future Enhancements
+
+ <p align="center">
+  <img src="gif_image/futureenchancement.gif" alt="future" width="350"/>
+</p>
+
 - Advanced bee species classification (not only rockbee but other types of bees are also classified for near future)
 - Heatmap-based colony density analysis  (This can be done withib this project only if we get time)
 - Seasonal migration prediction (this is advanced but possible) 
