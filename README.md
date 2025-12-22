@@ -53,7 +53,7 @@ The overall problem is divided into smaller, manageable challenges:
 ---
 
 ## Proposed Solution & System Architecture
-
+<img src ="images\architecture.png" alt="architecture" >
 - **User Reporting Layer**  
   - Students, staff, or trained volunteers report colonies when incidentally encountered.They dont haunt for colonies instead if they see any of such colonies they report on app.
 
