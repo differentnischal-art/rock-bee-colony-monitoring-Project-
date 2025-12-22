@@ -154,7 +154,7 @@ This structure ensures accountability and realistic deployment.
 
 <p>
 All scientific, ecological, and technical references used in this project are documented in
-<a href="docs/reference-links.txt">docs/reference-links.txt</a>.
+<a href="docs/reference-links.md">docs/reference-links.txt</a>.
 </p>
 
 
