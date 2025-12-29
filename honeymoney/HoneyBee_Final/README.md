@@ -15,7 +15,7 @@ HoneyBee is a professional-grade full-stack application designed to monitor and 
 
 Rock Bees play a crucial role in pollination and ecosystem health, yet their colonies—often found in urban buildings, farms, and high-altitude cliffs—are frequently disturbed or destroyed due to fear or lack of knowledge. 
 
-**HoneyBee** bridges this gap by providing:
+**HoneyMoney** bridges this gap by providing:
 1. **Instant Identification**: AI-powered verification to distinguish bee hives from other objects.
 2. **Contextual Safety**: Immediate guidelines based on the colony's location to protect both humans and bees.
 3. **Data-Driven Monitoring**: A centralized system for researchers to track colony distribution and health.
@@ -27,7 +27,7 @@ Rock Bees play a crucial role in pollination and ecosystem health, yet their col
 -  **AI-Powered Detection**: Integrated MobileNetV2 model for real-time verification of honeybee colonies.
 -  **Smart Geolocation**: Automatic GPS capture with reverse geocoding to identify precisely where a colony is found.
 -  **Dynamic Safety Guidelines**: Tailored "DO's and DON'Ts" based on location type (Buildings, Farms, Cliffs, etc.).
--  **Emergency Response**: Instant access to regional bee-emergency helplines.
+-  **Emergency Response**: Instant access to regional bee-emergency helplines based on the location
 -  **Research Dashboard**: Secure admin panel for data visualization and report management.
 -  **Modern UI**: A premium, mobile-responsive "Golden Harmony" interface using glassmorphism.
 
@@ -43,8 +43,7 @@ Rock Bees play a crucial role in pollination and ecosystem health, yet their col
 
 ### Backend & AI
 - **Node.js & Express**: Scalable REST API layer.
-- **TensorFlow.js**: Client-side ML model execution for privacy and speed.
-- **Sharp**: High-performance image processing for AI input.
+- **TensorFlow.js**: Client-side ML model execution for privacy and speed.(Initially we tried it through FastAPI but prediction werenot much accurate)
 - **MongoDB & Mongoose**: document-based persistence for large-scale reporting.
 
 ---
@@ -66,6 +65,7 @@ The system utilizes a split-client architecture where the frontend handles user 
 
 ### 1. Clone & Install
 ```bash
+#It is just an example
 # Clone the repository
 git clone https://github.com/your-repo/honeybee.git
 cd HoneyBee_Final

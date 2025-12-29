@@ -60,3 +60,5 @@ graph TD
     - Confidence score is calculated based on semantic markers.
 5. **Output**: System provides safety guidelines and emergency contacts based on the detection result and location.
 6. **Persistence**: Verified reports are saved to MongoDB for research analytics.
+7. **Admin Dashboard**:All the datas send by the user is recieved by admin and their location and timing of upload is visible in their dashboard.Similary they also have analytics portion where user role and location can be view in graph.
+They also have the authorized person contact number so that as per their location they could contact the user.
