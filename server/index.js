@@ -151,6 +151,14 @@ const upload = multer({ storage });
 
 // API Routes
 
+// Root Health Route
+app.get('/', (req, res) => {
+    res.json({
+        status: "ok",
+        message: "Rock Bee Colony Monitoring API is running"
+    });
+});
+
 // Health Check
 app.get('/api/health', (req, res) => {
     res.json({
