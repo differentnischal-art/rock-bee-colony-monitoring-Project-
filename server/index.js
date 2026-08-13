@@ -16,6 +16,48 @@ const tf = require('@tensorflow/tfjs');
 const mobilenet = require('@tensorflow-models/mobilenet');
 require('dotenv').config();
 
+// Custom IOHandler for loading local files
+class LocalIOHandler {
+    constructor(modelDir) {
+        this.modelDir = modelDir;
+    }
+
+    async load() {
+        const modelJsonPath = path.join(this.modelDir, 'model.json');
+        const modelJsonContent = fs.readFileSync(modelJsonPath, 'utf8');
+        const modelJson = JSON.parse(modelJsonContent);
+
+        const modelTopology = modelJson.modelTopology;
+        const weightSpecs = [];
+        const buffers = [];
+
+        if (modelJson.weightsManifest) {
+            for (const group of modelJson.weightsManifest) {
+                if (group.weights) {
+                    weightSpecs.push(...group.weights);
+                }
+                for (const shardPath of group.paths) {
+                    const fullShardPath = path.join(this.modelDir, shardPath);
+                    const buffer = fs.readFileSync(fullShardPath);
+                    buffers.push(buffer);
+                }
+            }
+        }
+
+        const combinedBuffer = Buffer.concat(buffers);
+        const weightData = combinedBuffer.buffer.slice(
+            combinedBuffer.byteOffset,
+            combinedBuffer.byteOffset + combinedBuffer.byteLength
+        );
+
+        return {
+            modelTopology,
+            weightSpecs,
+            weightData
+        };
+    }
+}
+
 // Load MobileNet Model Once and Reuse
 let model;
 let modelLoading = false;
@@ -32,13 +74,19 @@ async function getModel() {
 
     try {
         modelLoading = true;
-        console.log("🚀 Initializing MobileNet model...");
+        console.log("🚀 Initializing MobileNet model from local files...");
         const start = Date.now();
-        model = await mobilenet.load({ version: 2, alpha: 1.0 });
-        console.log(`✅ MobileNet model loaded successfully in ${(Date.now() - start) / 1000}s!`);
+        const modelDir = path.join(__dirname, 'model');
+        const localHandler = new LocalIOHandler(modelDir);
+        model = await mobilenet.load({
+            version: 2,
+            alpha: 1.0,
+            modelUrl: localHandler
+        });
+        console.log(`✅ MobileNet model loaded successfully from disk in ${(Date.now() - start) / 1000}s!`);
         return model;
     } catch (err) {
-        console.error("❌ Failed to load MobileNet:", err);
+        console.error("❌ Failed to load MobileNet locally:", err);
         return null;
     } finally {
         modelLoading = false;
@@ -93,36 +141,19 @@ const reportSchema = new mongoose.Schema({
 
 const Report = mongoose.model('Report', reportSchema);
 
-// --- Local File Storage Fallback ---
-const DATA_FILE = path.join(__dirname, 'reports.json');
-try {
-    if (!fs.existsSync(DATA_FILE)) {
-        fs.writeFileSync(DATA_FILE, JSON.stringify([], null, 2));
-    }
-} catch (err) {
-    console.warn("⚠️ Warning: Could not initialize local reports.json file:", err.message);
-}
-
+// --- In-Memory Storage Fallback (Serverless-friendly) ---
+let localReports = [];
 const localStore = {
     async getAll() {
-        try {
-            const data = fs.readFileSync(DATA_FILE, 'utf8');
-            return JSON.parse(data);
-        } catch (e) { return []; }
+        return localReports;
     },
     async save(reportData) {
-        const reports = await this.getAll();
         const newReport = { ...reportData, _id: Date.now().toString(), timestamp: new Date() };
-        reports.unshift(newReport);
-        try {
-            fs.writeFileSync(DATA_FILE, JSON.stringify(reports, null, 2));
-        } catch (err) {
-            console.error("❌ Failed to write report to local store:", err.message);
-        }
+        localReports.unshift(newReport);
         return newReport;
     }
 };
-// -----------------------------------
+// --------------------------------------------------------
 
 // Emergency Contact Schema
 const emergencyContactSchema = new mongoose.Schema({
@@ -137,15 +168,17 @@ const emergencyContactSchema = new mongoose.Schema({
 
 const EmergencyContact = mongoose.model('EmergencyContact', emergencyContactSchema);
 
-// Multer Storage Configuration
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads/user_uploads/');
-    },
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + path.extname(file.originalname));
-    }
-});
+// Multer Storage Configuration (Use MemoryStorage on Vercel to avoid EROFS)
+const storage = process.env.VERCEL
+    ? multer.memoryStorage()
+    : multer.diskStorage({
+        destination: (req, file, cb) => {
+            cb(null, 'uploads/user_uploads/');
+        },
+        filename: (req, file, cb) => {
+            cb(null, Date.now() + path.extname(file.originalname));
+        }
+    });
 
 const upload = multer({ storage });
 
@@ -303,14 +336,23 @@ app.post('/api/reports', upload.single('image'), async (req, res) => {
         let imagePath = '';
 
         if (req.file) {
-            imagePath = `/uploads/user_uploads/${req.file.filename}`;
+            if (process.env.VERCEL) {
+                const base64Image = req.file.buffer.toString('base64');
+                imagePath = `data:${req.file.mimetype};base64,${base64Image}`;
+            } else {
+                imagePath = `/uploads/user_uploads/${req.file.filename}`;
+            }
         } else if (req.body.image && req.body.image.startsWith('data:image')) {
-            // Handle base64 captured image
-            const base64Data = req.body.image.replace(/^data:image\/\w+;base64,/, "");
-            const filename = `capture-${Date.now()}.jpg`;
-            const fullPath = path.join(cameraDir, filename);
-            fs.writeFileSync(fullPath, base64Data, 'base64');
-            imagePath = `/uploads/camera/${filename}`;
+            if (process.env.VERCEL) {
+                imagePath = req.body.image;
+            } else {
+                // Handle base64 captured image
+                const base64Data = req.body.image.replace(/^data:image\/\w+;base64,/, "");
+                const filename = `capture-${Date.now()}.jpg`;
+                const fullPath = path.join(cameraDir, filename);
+                fs.writeFileSync(fullPath, base64Data, 'base64');
+                imagePath = `/uploads/camera/${filename}`;
+            }
         }
 
         const reportData = {
