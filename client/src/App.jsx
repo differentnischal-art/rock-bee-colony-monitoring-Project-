@@ -24,7 +24,7 @@ const useNavigation = () => {
   return { page, navigate: setPage };
 };
 
-const API_URL = 'http://localhost:5001';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001';
 
 const ReportForm = ({ onReport }) => {
   const [imageFile, setImageFile] = useState(null);

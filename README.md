@@ -15,7 +15,7 @@ HoneyBee is a professional-grade full-stack application designed to monitor and 
 
 Rock Bees play a crucial role in pollination and ecosystem health, yet their colonies—often found in urban buildings, farms, and high-altitude cliffs—are frequently disturbed or destroyed due to fear or lack of knowledge. 
 
-**HoneyMoney** bridges this gap by providing:
+**HoneyBee** bridges this gap by providing:
 1. **Instant Identification**: AI-powered verification to distinguish bee hives from other objects.
 2. **Contextual Safety**: Immediate guidelines based on the colony's location to protect both humans and bees.
 3. **Data-Driven Monitoring**: A centralized system for researchers to track colony distribution and health.
@@ -68,13 +68,14 @@ The system utilizes a split-client architecture where the frontend handles user 
 #It is just an example
 # Clone the repository
 git clone https://github.com/your-repo/honeybee.git
-cd HoneyBee_Final
+cd "Rock-bee project"
 
 # Install Frontend Dependencies
+cd client
 npm install
 
 # Install Backend Dependencies
-cd server
+cd ../server
 npm install
 ```
 
@@ -85,11 +86,17 @@ MONGODB_URI=mongodb://localhost:27017/honeybee
 PORT=5001
 ```
 
+Create a `.env` file in the `client` directory:
+```env
+VITE_API_URL=http://localhost:5001
+```
+
 ### 3. Run the Application
 Open two terminal windows:
 
 **Terminal 1 (Frontend):**
 ```bash
+cd client
 npm run dev
 ```
 
@@ -107,7 +114,8 @@ You can find the project demo video here: [demo/demo-video-link.txt](demo/demo-v
 ---
 
 ##  Folder Structure
-- `app/`: Source code for the application.
+- `client/`: React/Vite frontend source code.
+- `server/`: Express/Node backend source code.
 - `docs/`: Technical specifications and design documents.
 - `demo/`: Demonstration materials and video links.
 - `README.md`: Project overview and setup.
