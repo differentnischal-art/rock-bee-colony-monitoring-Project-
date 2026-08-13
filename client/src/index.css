@@ -1,0 +1,93 @@
+:root {
+  /* HSL Colors - Honey & Nature Palette */
+  --primary: 45 100% 50%;
+  /* Golden Honey */
+  --primary-foreground: 45 100% 10%;
+
+  --secondary: 140 40% 25%;
+  /* Forest Green */
+  --secondary-foreground: 140 40% 95%;
+
+  --accent: 25 100% 55%;
+  /* Warm Amber */
+  --accent-foreground: 25 100% 10%;
+
+  --background: 45 20% 98%;
+  --foreground: 45 10% 10%;
+
+  --card: 0 0% 100%;
+  --card-foreground: 45 10% 10%;
+
+  --border: 45 20% 90%;
+  --input: 45 20% 90%;
+  --ring: 45 100% 50%;
+
+  --radius: 1rem;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: var(--radius);
+  transition: all 0.2s ease;
+}
+
+input {
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius);
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+input:focus {
+  outline: none;
+  border-color: hsl(var(--ring));
+  box-shadow: 0 0 0 2px hsla(var(--ring), 0.2);
+}
+
+.glass {
+  background: hsla(0, 0%, 100%, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid hsla(0, 0%, 100%, 0.2);
+}
+
+.premium-gradient {
+  background: linear-gradient(135deg,
+      hsl(45, 100%, 65%),
+      hsl(25, 100%, 55%),
+      hsl(15, 100%, 50%));
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
