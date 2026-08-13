@@ -56,16 +56,20 @@ app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// Ensure uploads directory exists
 const uploadDir = path.join(__dirname, 'uploads');
 const cameraDir = path.join(__dirname, 'uploads/camera');
 const userUploadsDir = path.join(__dirname, 'uploads/user_uploads');
 
-[uploadDir, cameraDir, userUploadsDir].forEach(dir => {
-    if (!fs.existsSync(dir)) {
-        fs.mkdirSync(dir, { recursive: true });
-    }
-});
+// Ensure uploads directory exists (safely catch read-only filesystem errors on Vercel)
+try {
+    [uploadDir, cameraDir, userUploadsDir].forEach(dir => {
+        if (!fs.existsSync(dir)) {
+            fs.mkdirSync(dir, { recursive: true });
+        }
+    });
+} catch (err) {
+    console.warn("⚠️ Warning: Could not create upload directories. On Vercel, this is normal and expected.", err.message);
+}
 
 // MongoDB Connection
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/honeybee';
@@ -91,8 +95,12 @@ const Report = mongoose.model('Report', reportSchema);
 
 // --- Local File Storage Fallback ---
 const DATA_FILE = path.join(__dirname, 'reports.json');
-if (!fs.existsSync(DATA_FILE)) {
-    fs.writeFileSync(DATA_FILE, JSON.stringify([], null, 2));
+try {
+    if (!fs.existsSync(DATA_FILE)) {
+        fs.writeFileSync(DATA_FILE, JSON.stringify([], null, 2));
+    }
+} catch (err) {
+    console.warn("⚠️ Warning: Could not initialize local reports.json file:", err.message);
 }
 
 const localStore = {
@@ -106,7 +114,11 @@ const localStore = {
         const reports = await this.getAll();
         const newReport = { ...reportData, _id: Date.now().toString(), timestamp: new Date() };
         reports.unshift(newReport);
-        fs.writeFileSync(DATA_FILE, JSON.stringify(reports, null, 2));
+        try {
+            fs.writeFileSync(DATA_FILE, JSON.stringify(reports, null, 2));
+        } catch (err) {
+            console.error("❌ Failed to write report to local store:", err.message);
+        }
         return newReport;
     }
 };
@@ -416,8 +428,12 @@ app.delete('/api/emergency-contacts/:id', async (req, res) => {
     }
 });
 
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-    console.log('🐝 AI Detection: TensorFlow MobileNet V2 (Standard ML Model)');
-    console.log('✓ Optimized for semantic object recognition');
-});
+if (!process.env.VERCEL) {
+    app.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
+        console.log('🐝 AI Detection: TensorFlow MobileNet V2 (Standard ML Model)');
+        console.log('✓ Optimized for semantic object recognition');
+    });
+}
+
+module.exports = app;
