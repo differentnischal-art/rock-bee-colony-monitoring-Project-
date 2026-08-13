@@ -101,7 +101,14 @@ const PORT = process.env.PORT || 5001;
 
 // Middleware
 app.use(cors());
-app.use(express.json({ limit: '50mb' }));
+// Serverless-safe body parser (Vercel pre-parses req.body, which makes standard express.json hang)
+app.use((req, res, next) => {
+    if (req.body && typeof req.body === 'object') {
+        next();
+    } else {
+        express.json({ limit: '50mb' })(req, res, next);
+    }
+});
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 const uploadDir = path.join(__dirname, 'uploads');
