@@ -209,11 +209,27 @@ app.get('/api/health', (req, res) => {
 });
 
 // Verify image using TensorFlow MobileNet (Fast & Reliable!)
-app.post('/api/verify-image', async (req, res) => {
+app.post('/api/verify-image', upload.single('image'), async (req, res) => {
     try {
-        const { imageData, source } = req.body; // source: 'camera' or 'upload'
+        let imageBuffer;
+        let source = req.body.source || 'upload';
 
-        if (!imageData) {
+        if (req.file) {
+            if (process.env.VERCEL) {
+                imageBuffer = req.file.buffer;
+            } else {
+                imageBuffer = fs.readFileSync(req.file.path);
+                // Clean up the uploaded file to avoid disk accumulation
+                try {
+                    fs.unlinkSync(req.file.path);
+                } catch (e) {
+                    console.error("Failed to delete temp file:", e);
+                }
+            }
+        } else if (req.body && req.body.imageData) {
+            const base64Image = req.body.imageData.replace(/^data:image\/\w+;base64,/, "");
+            imageBuffer = Buffer.from(base64Image, 'base64');
+        } else {
             return res.status(400).json({ message: 'No image data provided' });
         }
 
@@ -223,10 +239,6 @@ app.post('/api/verify-image', async (req, res) => {
         }
 
         console.log('Analyzing image with TensorFlow MobileNet...');
-
-        // Extract base64 data and convert to buffer
-        const base64Image = imageData.replace(/^data:image\/\w+;base64,/, "");
-        const imageBuffer = Buffer.from(base64Image, 'base64');
 
         // Decode image to Tensor using Sharp (Pure JS Fallback)
         const { data, info } = await sharp(imageBuffer)
