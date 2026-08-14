@@ -24,7 +24,8 @@ const useNavigation = () => {
   return { page, navigate: setPage };
 };
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001';
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5001';
+const API_URL = API_BASE.endsWith('/api') ? API_BASE : `${API_BASE}/api`;
 
 const ReportForm = ({ onReport }) => {
   const [imageFile, setImageFile] = useState(null);
@@ -410,7 +411,7 @@ const VerificationPage = ({ reportData, onVerified, onRetry }) => {
   const fetchEmergencyContact = async () => {
     try {
       const cityName = reportData.address ? reportData.address.split(',')[0] : '';
-      const response = await fetch(`${API_URL}/api/emergency-contacts?lat=${reportData.gps.lat}&long=${reportData.gps.long}&city=${cityName}`);
+      const response = await fetch(`${API_URL}/emergency-contacts?lat=${reportData.gps.lat}&long=${reportData.gps.long}&city=${cityName}`);
       if (response.ok) {
         const contact = await response.json();
         setEmergencyContact(contact);
@@ -423,7 +424,7 @@ const VerificationPage = ({ reportData, onVerified, onRetry }) => {
   const verifyImage = async () => {
     try {
       setIsVerifying(true);
-      const response = await fetch(`${API_URL}/api/verify-image`, {
+      const response = await fetch(`${API_URL}/verify-image`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -488,7 +489,7 @@ const VerificationPage = ({ reportData, onVerified, onRetry }) => {
       formData.append('address', reportData.address);
       formData.append('confidence', verificationResult.confidence);
 
-      const response = await fetch(`${API_URL}/api/reports`, {
+      const response = await fetch(`${API_URL}/reports`, {
         method: 'POST',
         body: formData
       });
@@ -787,7 +788,7 @@ const AdminDashboard = ({ onLogout }) => {
   const [activeTab, setActiveTab] = useState('database');
 
   useEffect(() => {
-    fetch(`${API_URL}/api/reports`)
+    fetch(`${API_URL}/reports`)
       .then(res => res.json())
       .then(data => {
         setReports(data);
@@ -799,7 +800,7 @@ const AdminDashboard = ({ onLogout }) => {
       });
 
     // Fetch contacts
-    fetch(`${API_URL}/api/emergency-contacts/all`)
+    fetch(`${API_URL}/emergency-contacts/all`)
       .then(res => res.json())
       .then(data => setContacts(data))
       .catch(err => console.error("Contacts fetch error:", err));
