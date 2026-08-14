@@ -24,7 +24,7 @@ const useNavigation = () => {
   return { page, navigate: setPage };
 };
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5001';
+const API_BASE = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:5001' : '');
 const API_URL = API_BASE.endsWith('/api') ? API_BASE : `${API_BASE}/api`;
 
 const ReportForm = ({ onReport }) => {
@@ -916,7 +916,7 @@ const AdminDashboard = ({ onLogout }) => {
                   <div key={report._id} className="admin-report-card glass">
                     <div className="card-image-wrapper">
                       <img
-                        src={`${API_URL}${report.image}`}
+                        src={report.image.startsWith('http') ? report.image : (API_URL.startsWith('http') ? `${API_URL.replace(/\/api$/, '')}${report.image}` : report.image)}
                         alt="Colony"
                         className="admin-card-img"
                         onError={(e) => { e.target.src = '/logo.png'; }}
