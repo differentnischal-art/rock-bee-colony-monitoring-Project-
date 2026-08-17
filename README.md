@@ -1,131 +1,175 @@
-# 🐝 HoneyBee: Rock Bee Conservation Platform
+# Rock Bee Colony Detection & Monitoring System
 
-[![React](https://img.shields.io/badge/React-18-blue.svg)](https://reactjs.org/)
-[![Node.js](https://img.shields.io/badge/Node.js-24-green.svg)](https://nodejs.org/)
-[![TensorFlow.js](https://img.shields.io/badge/TensorFlow-JS-orange.svg)](https://www.tensorflow.org/js)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+## Project Overview
 
-> **Empowering Conservation through Automated Detection and Community Reporting.**
+<p align="center">
+  <img src="gif_image/Overview.gif" alt="Demo" width="300" height="300"/>
+</p>
 
-HoneyBee is a professional-grade full-stack application designed to monitor and protect **Rock Bee (Apis dorsata)** colonies. Utilizing state-of-the-art AI detection, it allows researchers and the public to report sightings, receive instant safety guidance, and access emergency services.
-
----
-
-## 📖 Problem Statement
-
-Rock Bees play a crucial role in pollination and ecosystem health, yet their colonies—often found in urban buildings, farms, and high-altitude cliffs—are frequently disturbed or destroyed due to fear or lack of knowledge. 
-
-**HoneyBee** bridges this gap by providing:
-1. **Instant Identification**: AI-powered verification to distinguish bee hives from other objects.
-2. **Contextual Safety**: Immediate guidelines based on the colony's location to protect both humans and bees.
-3. **Data-Driven Monitoring**: A centralized system for researchers to track colony distribution and health.
+This project is developed as part of a college initiative in collaboration with **GKVK (University of Agricultural Sciences, Bengaluru)** and related authorities. The objective is to design a **centralized, AI-assisted application** that enables safe reporting, validation, and monitoring of rock bee colonies. The system is intended for **institutional and research use**, supporting ecological conservation while minimizing human–bee conflicts.
 
 ---
 
-## ✨ Key Features
+## Problem Background
+Rock bees (*Apis dorsata*) are one of the largest honey bee species found in India. Unlike other honey bees, rock bees exhibit **open nesting behavior**, where colonies are built on exposed surfaces such as rock cliffs, tall trees, and building edges. Due to this behavior, their colonies are highly visible and often located close to human activity.
 
--  **AI-Powered Detection**: Integrated MobileNetV2 model for real-time verification of honeybee colonies.
--  **Smart Geolocation**: Automatic GPS capture with reverse geocoding to identify precisely where a colony is found.
--  **Dynamic Safety Guidelines**: Tailored "DO's and DON'Ts" based on location type (Buildings, Farms, Cliffs, etc.).
--  **Emergency Response**: Instant access to regional bee-emergency helplines based on the location
--  **Research Dashboard**: Secure admin panel for data visualization and report management.
--  **Modern UI**: A premium, mobile-responsive "Golden Harmony" interface using glassmorphism.
+<p align="center">
+  <img src="images/hives.png" alt="hive" width="350"/>
+</p>
 
----
-
-## 🛠️ Tech Stack
-
-### Frontend & UI
-- **React.js**: Modern component-based architecture.
-- **Vite**: Ultra-fast build tool for optimized performance.
-- **Custom CSS**: Premium glassmorphism design system.
-- **Lucide-React**: Clean, semantic iconography.
-
-### Backend & AI
-- **Node.js & Express**: Scalable REST API layer.
-- **TensorFlow.js**: Client-side ML model execution for privacy and speed.(Initially we tried it through FastAPI but prediction werenot much accurate)
-- **MongoDB & Mongoose**: document-based persistence for large-scale reporting.
+While rock bees play a critical role in pollination and ecological balance, their proximity to human settlements can lead to safety concerns, panic situations, and improper destruction of colonies. At present, there is **no centralized, technology-driven system** to systematically report, verify, and monitor these colonies.
 
 ---
 
-## 📐 App Architecture
+## Need for a Centralized Monitoring System
+The absence of a structured monitoring mechanism results in:
+- Manual and unverified reporting of colonies  
+- Lack of location-based historical data  
+- Increased human–bee conflicts  
+- Destruction of colonies instead of conservation  
+- Limited data availability for researchers and authorities  
 
-The system utilizes a split-client architecture where the frontend handles user interaction and geolocation, while the backend processes AI verification and data persistence.
-
-> [!TIP]
-> **See Detailed Architecture**: [docs/architecture.md](docs/architecture.md)
-
----
-
-##  Setup Instructions
-
-### Prerequisites
-- [Node.js](https://nodejs.org/) (v20+)
-- [MongoDB Community Server](https://www.mongodb.com/try/download/community)
-
-### 1. Clone & Install
-```bash
-#It is just an example
-# Clone the repository
-git clone https://github.com/your-repo/honeybee.git
-cd "Rock-bee project"
-
-# Install Frontend Dependencies
-cd client
-npm install
-
-# Install Backend Dependencies
-cd ../server
-npm install
-```
-
-### 2. Environment Configuration
-Create a `.env` file in the `server` directory:
-```env
-MONGODB_URI=mongodb://localhost:27017/honeybee
-PORT=5001
-```
-
-Create a `.env` file in the `client` directory:
-```env
-VITE_API_URL=http://localhost:5001
-```
-
-### 3. Run the Application
-Open two terminal windows:
-
-**Terminal 1 (Frontend):**
-```bash
-cd client
-npm run dev
-```
-
-**Terminal 2 (Backend):**
-```bash
-cd server
-npm start
-```
+A centralized application can bridge this gap by enabling **structured data collection, intelligent validation, and real-time monitoring** for informed decision-making.
+ 
+ Need an app like the image below:
+  <p align="center">
+  <img src="images/app-flow.png" alt="app" width="350"/>
+</p>
 
 ---
 
-## 🎥 Demo
-You can find the project demo video here: [demo/demo-video-link.txt](demo/demo-video-link.txt)
+## Research Summary
+The project is based on research into:
+- Types of honey bees found in India, with emphasis on rock bees  
+- Rock bee habitat, nesting behavior, and seasonal patterns  
+- Risks posed by colonies in urban and semi-urban environments  
+- Limitations of existing manual and non-digital monitoring approaches  
+
+This research highlights the need for an automated, scalable, and eco-friendly solution.
+
+For the detail information about the research you can visit 
 
 ---
 
-##  Folder Structure
-- `client/`: React/Vite frontend source code.
-- `server/`: Express/Node backend source code.
-- `docs/`: Technical specifications and design documents.
-- `demo/`: Demonstration materials and video links.
-- `README.md`: Project overview and setup.
+## Problem Breakdown
+The overall problem is divided into smaller, manageable challenges:
+
+<p align="center">
+  <img src="gif_image/layers.gif" alt="layers" width="350"/>
+</p>
+
+
+1. **Unstructured Reporting**  
+   - No standardized method to report rock bee colonies  
+
+2. **False or Incorrect Reports**  
+   - Images or reports may not actually contain rock bee colonies  
+
+3. **Lack of Monitoring & Visualization**  
+   - Authorities lack a centralized view of colony locations. This helps authorities to collect real data through their own app.
+
+4. **Limited Public Awareness**  
+   - People often destroy colonies due to fear or misinformation .
+
+  
+---
+
+## Proposed Solution & System Architecture
+
+ <p align="center">
+  <img src="images/architecture.png" alt="arch" width="350"/>
+</p>
+
+
+- **User Reporting Layer**  
+  - Students, staff, or trained volunteers report colonies when incidentally encountered.They dont haunt for colonies instead if they see any of such colonies they report on app.
+
+- **AI Validation Layer (Extra Layer)**  
+  - Machine Learning model validates uploaded images and assigns confidence scores  (CNN DL model)
+
+- ** Monitoring Layer**  
+  - Verified data is stored and visualized on a centralized dashboard .(done by concerned authorities) 
+
+- **Authority Decision Layer**  
+  - GKVK and related authorities analyze data and take eco-friendly actions.
+
+This layered approach ensures reliability, scalability, and responsible usage.
 
 ---
 
-**Team leader**=**Nischal Adhikari**
-**Team member**= **Ishan Joshi**
-**Team member**= **Alan Basnet**
+
+## AI / Machine Learning Component
+The AI component plays a **supportive role**, assisting experts rather than replacing them.
+
+### ML Functions:
+- **Image Classification**  
+  - Detects whether the uploaded image contains a rock bee colony  
+  - Outputs a label and confidence score  
+
+A lightweight CNN-based model ( MobileNet architecture) is suitable for mobile deployment, ensuring efficient and practical inference.
+
+---
+
+## Stakeholders & Usage Model
+The application follows a clear role-based usage model:
+
+| Students / Staff or lets say they inform to college or unis and college & unis report in our app.| Report especially when they incidentally encounter colonies
+
+| AI System | Validate images and assign confidence |
+
+| GKVK / Authorities | Monitor data and decide conservation actions |
+
+This structure ensures accountability and realistic deployment.
+
+---
+
+## Scope & Limitations
+### Scope:
+- Centralized reporting and monitoring  
+- AI-assisted validation  
+- Support for ecological research and conservation and also for high honey production by knowing their ecological behavioural pattern. 
+
+### Limitations:
+- Accuracy depends on image quality (clearer the image higher us the accuracy) 
+- ML model performance limited by dataset availability  (dataset of the images from kaggle)
+- Final decisions require human expertise  
+
+---
+
+## Future Enhancements
+
+ <p align="center">
+  <img src="gif_image/futureenchancement.gif" alt="future" width="350"/>
+</p>
+
+- Advanced bee species classification (not only rockbee but other types of bees are also classified for near future)
+- Heatmap-based colony density analysis  (This can be done withib this project only if we get time)
+- Seasonal migration prediction (this is advanced but possible) 
+- Alert systems for high-risk zones  
+ 
+
+---
+
+## References
+
+<p>
+All scientific, ecological, and technical references used in this project are documented in
+<a href="docs/reference-links.md">docs/reference-links.md</a>.
+</p>
 
 
+---
 
-Developed as part of the **GKVK UAS Bengaluru Initiative** for sustainable bee conservation. 
+## Team Details
+
+ **Team Leader:** Nischal Adhikari
+- **Team Member:** Ishan Joshi 
+- **Team Member:** Alan Basnet
+
+
+---
+
+## Project Status
+Stage-1: Research, problem understanding, and solution design  
+Stage-2: Application development and AI integration (planned)
+
