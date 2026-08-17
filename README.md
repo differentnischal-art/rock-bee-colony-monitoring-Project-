@@ -44,6 +44,35 @@ A centralized application can bridge this gap by enabling **structured data coll
 
 ---
 
+## Cloning and Running Locally
+
+Follow these steps to set up and run the project locally:
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/differentnischal-art/rock-bee-colony-monitoring-Project-.git
+```
+
+### 2. Backend Setup (Server)
+Navigate to the `server` directory, install the required dependencies, set up your environment variables, and start the development server:
+```bash
+cd server
+npm install
+cp .env.example .env
+npm run dev
+```
+
+### 3. Frontend Setup (Client)
+In a new terminal or after navigating back to the project root, go to the `client` directory, install the dependencies, set up the environment variables, and start the Vite development server:
+```bash
+cd ../client
+npm install
+cp .env.example .env
+npm run dev
+```
+
+---
+
 ## Research Summary
 The project is based on research into:
 - Types of honey bees found in India, with emphasis on rock bees  
