@@ -81,7 +81,8 @@ async function getModel() {
         model = await mobilenet.load({
             version: 2,
             alpha: 1.0,
-            modelUrl: localHandler
+            modelUrl: localHandler,
+            inputRange: [0, 1]
         });
         console.log(`✅ MobileNet model loaded successfully from disk in ${(Date.now() - start) / 1000}s!`);
         return model;
